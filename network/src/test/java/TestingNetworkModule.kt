@@ -35,7 +35,7 @@ class TestingNetworkModule : KoinTest {
     @Test
     fun testLoadingTopHeadersSuccessfully() = runBlocking {
         try {
-            val topHeaders = newsWebClient.loadLatestNewsHeaders(Languages.EN)
+            val topHeaders = newsWebClient.loadLatestNewsHeaders(Languages.EN.langName)
             Assert.assertTrue(
                 "Error: An Error Occurred While loading Latest News Headers",
                 topHeaders.status.equals("ok")
@@ -52,7 +52,7 @@ class TestingNetworkModule : KoinTest {
     @Test
     fun testLoadTopHeadersFailed() = runBlocking {
         try {
-            val topHeaders = newsWebClient.loadLatestNewsHeaders(Languages.NONE)
+            val topHeaders = newsWebClient.loadLatestNewsHeaders(Languages.EN.langName)
             Assert.assertFalse(
                 "Error: This call of Api should Fail",
                 topHeaders.status.equals("ok")
@@ -78,7 +78,7 @@ class TestingNetworkModule : KoinTest {
     @Test
     fun testNewsHeadersData() = runBlocking {
         try {
-            val topHeaders = newsWebClient.loadLatestNewsHeaders(Languages.EN)
+            val topHeaders = newsWebClient.loadLatestNewsHeaders(Languages.EN.langName)
             Assert.assertTrue(
                 "Error: An Error Occurred While loading Latest News Headers",
                 topHeaders.status.equals("ok")

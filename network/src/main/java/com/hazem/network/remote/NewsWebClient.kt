@@ -1,6 +1,5 @@
 package com.hazem.network.remote
 
-import com.hazem.entities.Languages
 import com.hazem.entities.clients.INewsWebClient
 import com.hazem.entities.headlines.remote.NewsHeadersResponse
 import com.hazem.entities.sources.NewsSourcesResponse
@@ -21,8 +20,8 @@ internal class NewsWebClient(private var builder: Retrofit.Builder) : INewsWebCl
 
     private val apiEndPoints: NewsEndPoints by lazy { builder.build().create(NewsEndPoints::class.java) }
 
-    override suspend fun loadLatestNewsHeaders(lang:Languages): NewsHeadersResponse {
-        return apiEndPoints.loadTopHeadLines(lang.langName)
+    override suspend fun loadLatestNewsHeaders(lang:String): NewsHeadersResponse {
+        return apiEndPoints.loadTopHeadLines(lang)
     }
 
     override suspend fun loadNewsSources(): NewsSourcesResponse {
