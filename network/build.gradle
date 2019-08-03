@@ -1,0 +1,15 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // Koin for Kotlin
+    implementation "org.koin:koin-core:2.0.1"
+    // Koin Extended & experimental features
+    implementation "org.koin:koin-core-ext:2.0.1"
+    // Koin for Unit tests
+    testImplementation "org.koin:koin-test:2.0.1"
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
