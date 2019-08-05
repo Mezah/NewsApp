@@ -5,10 +5,15 @@ import com.hazem.entities.headlines.local.HeadLine
 import com.hazem.entities.headlines.remote.Article
 import com.hazem.entities.mappers.LocalMapper
 
-class NewsHeadersMapper:LocalMapper<Article,HeadLine> {
+/**
+ * Mapping only the required parameters from API response.
+ * This will prevent UI from any change in api response by not to expose
+ * the response directly.
+ */
+class NewsHeadersMapper : LocalMapper<Article, HeadLine> {
 
     override fun convert(from: Article): HeadLine {
         val date = headLinesDateFormatter(from.publishedAt)
-        return HeadLine(from.title,date,from.urlToImage)
+        return HeadLine(from.title, date, from.urlToImage, from.description, from.url, from.author)
     }
 }

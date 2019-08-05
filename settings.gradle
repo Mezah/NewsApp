@@ -1,1 +1,1 @@
-include ':app', ':network', ':entities', ':business'
+include ':app', ':network', ':entities', ':business', ':newslist'
