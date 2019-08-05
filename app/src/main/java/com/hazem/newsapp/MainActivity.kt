@@ -1,12 +1,21 @@
 package com.hazem.newsapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.hazem.newslist.activities.NewsListActivity
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ActivityCompat.startActivity(this, Intent(this, NewsListActivity::class.java), null)
+
     }
 }

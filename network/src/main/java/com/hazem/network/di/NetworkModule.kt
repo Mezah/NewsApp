@@ -12,7 +12,7 @@ import org.koin.dsl.module
 object NetworkModule : (String, String) -> Module {
     private const val API_INTERCEPTOR = "ApiInterceptor"
     private const val LOGGING_INTERCEPTOR = "LoggingInterceptor"
-    private const val NEWS_WEB_CLIENT = "NewsWebClient"
+    const val NEWS_WEB_CLIENT = "NewsWebClient"
 
 
     override fun invoke(baseUrl: String, apiKey: String): Module = module {
