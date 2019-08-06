@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hazem.entities.headlines.local.HeadLine
@@ -48,7 +49,7 @@ class NewsVH(private val view: View) : RecyclerView.ViewHolder(view) {
             .into(logo)
 
         container.setOnClickListener {
-            NewsListFragmentDirections.actionNewsListFragmentToNewsDetailsFragment(headLine)
+            it.findNavController().navigate(NewsListFragmentDirections.actionNewsListFragmentToNewsDetailsFragment(headLine))
         }
     }
 }

@@ -19,6 +19,7 @@ class NewsListActivity : AppCompatActivity() {
         navHosFragment = supportFragmentManager.findFragmentById(R.id.main_nav_fragment) as NavHostFragment
         navController = navHosFragment.navController
         toolbar = findViewById(R.id.main_toolbar)
+        setSupportActionBar(toolbar)
         toolbar.setupWithNavController(navController)
     }
 

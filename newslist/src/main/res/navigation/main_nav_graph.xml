@@ -16,8 +16,9 @@
     </fragment>
     <fragment
         android:id="@+id/newsDetailsFragment"
+        tools:layout="@layout/fragment_news_details"
         android:name="com.hazem.newslist.fragments.NewsDetailsFragment"
-        android:label="NewsDetailsFragment" >
+        android:label="" >
         <argument
             android:name="headLine"
             app:argType="com.hazem.entities.headlines.local.HeadLine" />

@@ -12,6 +12,7 @@ data class HeadLine(
     val logo: String?,
     val description: String?,
     val url: String?,
-    val author: String?
+    val author: String?,
+    val source:String?
 
 ) : Serializable

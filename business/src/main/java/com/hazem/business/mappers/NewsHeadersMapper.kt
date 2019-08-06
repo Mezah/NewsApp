@@ -14,6 +14,6 @@ class NewsHeadersMapper : LocalMapper<Article, HeadLine> {
 
     override fun convert(from: Article): HeadLine {
         val date = headLinesDateFormatter(from.publishedAt)
-        return HeadLine(from.title, date, from.urlToImage, from.description, from.url, from.author)
+        return HeadLine(from.title, date, from.urlToImage, from.content, from.url, from.author, from.source?.name)
     }
 }
