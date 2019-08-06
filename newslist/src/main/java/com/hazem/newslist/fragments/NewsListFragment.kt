@@ -1,12 +1,11 @@
 package com.hazem.newslist.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hazem.newslist.R
@@ -22,6 +21,10 @@ class NewsListFragment : Fragment() {
     private val newsListAdpter = NewsListAdapter()
     private val newsListViewModel:NewsListViewModel by viewModel(StringQualifier(NewsListModule.NEWS_LIST_VM))
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val mView = inflater.inflate(R.layout.fragment_news_list, container, false)
         newsList = mView.findViewById(R.id.news_list)
@@ -52,5 +55,22 @@ class NewsListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         newsListViewModel.loadNewsList()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.news_list_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.filter -> {
+                findNavController().navigate(NewsListFragmentDirections.actionNewsListFragmentToFilterFragment())
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 }
