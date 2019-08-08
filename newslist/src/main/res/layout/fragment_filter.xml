@@ -36,53 +36,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <LinearLayout
-        android:id="@+id/country_selection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RadioGroup
+        android:id="@+id/radio_buttons_container"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/separator">
+        app:layout_constraintTop_toBottomOf="@id/separator"
+
+        >
 
         <RadioButton
             android:id="@+id/country_radio_button"
+            android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:layout_marginTop="10dp"
+            android:layout_gravity="bottom"
+            android:id="@+id/source_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/source_selection"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/radio_buttons_container"
+        app:layout_constraintTop_toTopOf="@id/radio_buttons_container">
+
 
         <Spinner
             android:id="@+id/country_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:prompt="@string/select_country"
             android:spinnerMode="dropdown" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/source_selection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/country_selection">
-
-        <RadioButton
-            android:id="@+id/source_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/source_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:prompt="@string/select_source"
             android:spinnerMode="dropdown" />
     </LinearLayout>
 
@@ -96,24 +106,30 @@
         app:layout_constraintTop_toBottomOf="@id/source_selection" />
 
     <Button
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/separator2"
+        android:id="@+id/cancel_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@android:color/white"
         android:text="@android:string/cancel"
-        android:layout_marginTop="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator2" />
 
     <Button
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/separator2"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/white"
-        android:text="@android:string/cancel"
+        android:id="@+id/ok_filter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/white"
+        android:text="@android:string/ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

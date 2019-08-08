@@ -11,3 +11,4 @@ fun headLinesDateFormatter(dateFromApi: String?): String {
     val outputSimpleDateFormat = SimpleDateFormat(outputDateTemplate, Locale.getDefault())
     return outputSimpleDateFormat.format(apiDate)
 }
+

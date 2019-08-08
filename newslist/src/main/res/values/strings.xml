@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">News App</string>
     <string name="filter_news">Filter News By:</string>
+    <string name="select_country">Select a Country</string>
+    <string name="select_source">Selecs News Source</string>
+
+
 </resources>

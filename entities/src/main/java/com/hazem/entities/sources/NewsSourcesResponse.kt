@@ -7,7 +7,7 @@ data class NewsSourcesResponse(
 
 	@SerializedName("sources")
     @Expose
-	val sources: List<NewsSource?>? = null,
+	val sources: List<NewsSource>? = null,
 
 	@SerializedName("status")
     @Expose
