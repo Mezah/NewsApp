@@ -8,7 +8,9 @@ import retrofit2.http.Query
 interface NewsEndPoints {
     @GET("top-headlines")
     suspend fun loadTopHeadLines(
-        @Query("language") language: String
+        @Query("language") language: String,
+        @Query("country") country: String?,
+        @Query("source") source: String?
     ): NewsHeadersResponse
 
     @GET("sources")

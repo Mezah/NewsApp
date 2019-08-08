@@ -17,7 +17,8 @@ class TopHeadersUseCase : UseCase<WeakHashMap<String, String>, List<HeadLine>>()
 
     override suspend fun execute(parameters: WeakHashMap<String, String>): List<HeadLine> {
         val language = parameters["Language"] ?: "en"
-//        val source = parameters["Source"]
-        return webClient.loadLatestNewsHeaders(language).articles?.map { headLineMapper.convert(it) } ?: emptyList()
+        val country:String? = parameters["Country"]
+        val source:String? = parameters["Source"]
+        return webClient.loadLatestNewsHeaders(language,country,source).articles?.map { headLineMapper.convert(it) } ?: emptyList()
     }
 }

@@ -1,6 +1,7 @@
 package com.hazem.newslist.fragments
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,8 @@ import com.hazem.entities.headlines.local.Source
 import com.hazem.newslist.R
 import com.hazem.newslist.adapters.SourcesArrayAdapter
 import com.hazem.newslist.di.NewsListModule
-import com.hazem.newslist.viewmodels.NewsFilterViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.hazem.newslist.viewmodels.NewsListViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.qualifier.StringQualifier
 
 class FilterFragment : DialogFragment() {
@@ -27,8 +28,9 @@ class FilterFragment : DialogFragment() {
     private lateinit var sourceSpinner: Spinner
     private lateinit var countryRadioButton: RadioButton
     private lateinit var sourceRadioButton: RadioButton
+    private val newsListViewModel: NewsListViewModel by sharedViewModel<NewsListViewModel>(StringQualifier(NewsListModule.NEWS_LIST_VM))
 
-    private val filterViewModel: NewsFilterViewModel by viewModel(StringQualifier(NewsListModule.FILTER_NEWS_VM))
+    private val handler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val mView = inflater.inflate(R.layout.fragment_filter, container, false)
@@ -39,7 +41,6 @@ class FilterFragment : DialogFragment() {
         sourceSpinner = mView.findViewById(R.id.source_spinner)
         countryRadioButton = mView.findViewById(R.id.country_radio_button)
         sourceRadioButton = mView.findViewById(R.id.source_radio_button)
-        prepareSpinner()
         return mView
     }
 
@@ -51,9 +52,12 @@ class FilterFragment : DialogFragment() {
         cancelButton.setOnClickListener { dismiss() }
         okButton.setOnClickListener {
             //perform filter
-
+            prepareSpinnerData()
+            handler.postDelayed({
+                dismiss()
+            }, 500)
         }
-        filterViewModel.countriesCodesList.observe(this, Observer {
+        newsListViewModel.countriesCodesList.observe(this, Observer {
             // populate countries codes
             it.apply {
                 add(0, "Select Country")
@@ -62,40 +66,39 @@ class FilterFragment : DialogFragment() {
             countrySpinner.adapter = countryAdapter
         })
 
-        filterViewModel.newsSources.observe(this, Observer {
+        newsListViewModel.newsSources.observe(this, Observer {
             //populate news sources
-            it.add(0, Source("","Select News Source"))
-            val sourcAdapter = SourcesArrayAdapter(context!!,it)
+            it.add(0, Source("", "Select News Source"))
+            val sourcAdapter = SourcesArrayAdapter(context!!, it)
             sourceSpinner.adapter = sourcAdapter
             sourcAdapter.notifyDataSetChanged()
         })
-        filterViewModel.errorMessage.observe(this, Observer {
+        newsListViewModel.errorMessage.observe(this, Observer {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
     }
 
     override fun onResume() {
         super.onResume()
-        filterViewModel.loadCountriesCodes()
-        filterViewModel.loadNewsSources()
+        newsListViewModel.loadCountriesCodes()
+        newsListViewModel.loadNewsSources()
     }
 
-    fun prepareSpinner() {
-        countrySpinner.setOnItemLongClickListener { adapterView, view, position, id ->
-            if (position == 0)
-                return@setOnItemLongClickListener false
-            val source: Source? = adapterView?.adapter?.getItem(position) as Source
-            Toast.makeText(view.context, source?.id, Toast.LENGTH_SHORT).show()
-            true
+    private fun prepareSpinnerData() {
+        if (countryRadioButton.isChecked) {
+            if (countrySpinner.selectedItemPosition == 0)
+                return
+            val selectedCountry = countrySpinner.selectedItem as String
+            newsListViewModel.setCountryCode(selectedCountry)
+        } else {
+            if (sourceSpinner.selectedItemPosition == 0)
+                return
+            val source = sourceSpinner.selectedItem as Source
+            source.id?.let { sourceId ->
+                newsListViewModel.setNewsSource(sourceId)
+            }
         }
 
-        sourceSpinner.setOnItemLongClickListener { adapterView, view, position, id ->
-            if (position == 0)
-                return@setOnItemLongClickListener false
-            val newsSource: String? = adapterView?.adapter?.getItem(position) as String
-            Toast.makeText(view.context, newsSource, Toast.LENGTH_SHORT).show()
-            true
-        }
     }
 
     private fun createSpinnerAdapter(items: Array<String>): ArrayAdapter<String> {

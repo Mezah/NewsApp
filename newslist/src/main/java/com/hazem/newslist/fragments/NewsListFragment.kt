@@ -12,23 +12,27 @@ import com.hazem.newslist.R
 import com.hazem.newslist.adapters.NewsListAdapter
 import com.hazem.newslist.di.NewsListModule
 import com.hazem.newslist.viewmodels.NewsListViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.qualifier.StringQualifier
 
 class NewsListFragment : Fragment() {
     private lateinit var newsList: RecyclerView
     private lateinit var emptyView: View
+    private lateinit var reloadButton:View
+
     private val newsListAdpter = NewsListAdapter()
-    private val newsListViewModel:NewsListViewModel by viewModel(StringQualifier(NewsListModule.NEWS_LIST_VM))
+    private val newsListViewModel: NewsListViewModel by sharedViewModel<NewsListViewModel>(StringQualifier(NewsListModule.NEWS_LIST_VM))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val mView = inflater.inflate(R.layout.fragment_news_list, container, false)
         newsList = mView.findViewById(R.id.news_list)
         emptyView = mView.findViewById(R.id.empty_view)
+        reloadButton=mView.findViewById(R.id.reload)
         return mView
     }
 
@@ -50,6 +54,9 @@ class NewsListFragment : Fragment() {
         newsListViewModel.errorMessage.observe(this, Observer {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
+        reloadButton.setOnClickListener {
+            newsListViewModel.loadNewsList()
+        }
     }
 
     override fun onResume() {
@@ -59,11 +66,11 @@ class NewsListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.news_list_menu,menu)
+        inflater.inflate(R.menu.news_list_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.filter -> {
                 findNavController().navigate(NewsListFragmentDirections.actionNewsListFragmentToFilterFragment())
                 true

@@ -20,8 +20,8 @@ internal class NewsWebClient(private var builder: Retrofit.Builder) : INewsWebCl
 
     private val apiEndPoints: NewsEndPoints by lazy { builder.build().create(NewsEndPoints::class.java) }
 
-    override suspend fun loadLatestNewsHeaders(lang:String): NewsHeadersResponse {
-        return apiEndPoints.loadTopHeadLines(lang)
+    override suspend fun loadLatestNewsHeaders(lang:String,country:String?,source:String?): NewsHeadersResponse {
+        return apiEndPoints.loadTopHeadLines(lang,country,source)
     }
 
     override suspend fun loadNewsSources(): NewsSourcesResponse {

@@ -12,20 +12,37 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/news_list"
-            tools:listitem="@layout/cell_headline"
-            tools:itemCount="7"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:itemCount="7"
+            tools:listitem="@layout/cell_headline" />
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/empty_view"
         android:layout_width="wrap_content"
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="No News Available"
-        android:textSize="30sp"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No News Available"
+            android:textSize="30sp"
+             />
+
+        <Button
+            android:id="@+id/reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Reload"
+            android:textSize="30sp"
+             />
+    </LinearLayout>
+
 
 </FrameLayout>
