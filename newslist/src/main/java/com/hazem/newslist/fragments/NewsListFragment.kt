@@ -26,6 +26,7 @@ class NewsListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        newsListViewModel.loadNewsList()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -59,10 +60,6 @@ class NewsListFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        newsListViewModel.loadNewsList()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
